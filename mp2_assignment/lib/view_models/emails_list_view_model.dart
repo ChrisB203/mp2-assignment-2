@@ -2,26 +2,42 @@ import 'package:mp2_assignment/models/event.dart';
 import 'package:mp2_assignment/models/memo.dart';
 import 'package:mp2_assignment/models/task.dart';
 import 'package:mp2_assignment/repositories/email_repositories.dart';
+import 'package:mp2_assignment/view_models/event_view_model.dart';
+import 'package:mp2_assignment/view_models/memo_view_model.dart';
+import 'package:mp2_assignment/view_models/task_view_model.dart';
 
 class EmailsListViewModel {
   final EmailRepository repo;
   EmailsListViewModel(this.repo);
 
-  Future<List<Memo>> fetchMemos() async {
+  Future<List<MemoViewModel>> fetchMemos() async {
     final map = await repo.fetchEmails();
     final list = map['memos'] as List<dynamic>? ?? const [];
-    return list.map((e) => Memo.fromJson(e as Map<String, dynamic>)).toList();
+    return list
+        .map(
+          (e) => MemoViewModel(memo: Memo.fromJson(e as Map<String, dynamic>)),
+        )
+        .toList();
   }
 
-  Future<List<Event>> fetchEvents() async {
+  Future<List<EventViewModel>> fetchEvents() async {
     final map = await repo.fetchEmails();
     final list = map['events'] as List<dynamic>? ?? const [];
-    return list.map((e) => Event.fromJson(e as Map<String, dynamic>)).toList();
+    return list
+        .map(
+          (e) =>
+              EventViewModel(event: Event.fromJson(e as Map<String, dynamic>)),
+        )
+        .toList();
   }
 
-  Future<List<Task>> fetchTasks() async {
+  Future<List<TaskViewModel>> fetchTasks() async {
     final map = await repo.fetchEmails();
     final list = map['tasks'] as List<dynamic>? ?? const [];
-    return list.map((e) => Task.fromJson(e as Map<String, dynamic>)).toList();
+    return list
+        .map(
+          (e) => TaskViewModel(task: Task.fromJson(e as Map<String, dynamic>)),
+        )
+        .toList();
   }
 }

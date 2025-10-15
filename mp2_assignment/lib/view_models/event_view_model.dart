@@ -1,9 +1,9 @@
 import 'package:mp2_assignment/models/event.dart';
 
-class EventsViewModel {
+class EventViewModel {
   final Event event;
 
-  EventsViewModel({required this.event});
+  EventViewModel({required this.event});
 
   DateTime get startTime {
     return DateTime.parse(event.startTime);
