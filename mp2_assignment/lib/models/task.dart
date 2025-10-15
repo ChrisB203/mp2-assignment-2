@@ -6,8 +6,10 @@ class Task {
   final String assignedTo;
   final String dueDate;
   final String description;
-  final String estimateHours;
+  final double estimateHours;
   final String createdAt;
+  final List<String>? blockedBy;
+  final String? completedAt;
 
   Task({
     required this.id,
@@ -19,19 +21,24 @@ class Task {
     required this.description,
     required this.estimateHours,
     required this.createdAt,
+    this.blockedBy,
+    this.completedAt,
   });
 
   factory Task.fromJson(Map<String, dynamic> json) {
+    final blocked = json['blocked_by'] as List<dynamic>?;
     return Task(
-      id: json["id"],
-      title: json["title"],
-      status: json["status"],
-      priority: json["priority"],
-      assignedTo: json["assigned_to"],
-      dueDate: json["due_date"],
-      description: json["description"],
-      estimateHours: json["estimate_hours"],
-      createdAt: json["created_at"],
+      id: json['id'] as String,
+      title: json['title'] as String,
+      status: json['status'] as String,
+      priority: json['priority'] as String,
+      assignedTo: json['assigned_to'] as String,
+      dueDate: json['due_date'] as String,
+      description: json['description'] as String,
+      estimateHours: (json['estimate_hours'] as num).toDouble(),
+      createdAt: json['created_at'] as String,
+      blockedBy: blocked?.map((e) => e as String).toList(),
+      completedAt: json['completed_at'] as String?,
     );
   }
 }

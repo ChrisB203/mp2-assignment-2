@@ -3,7 +3,7 @@ class Memo {
   final String message;
   final String author;
   final String createdAt;
-  final String tags;
+  final List<String> tags;
 
   Memo({
     required this.id,
@@ -14,12 +14,13 @@ class Memo {
   });
 
   factory Memo.fromJson(Map<String, dynamic> json) {
+    final rawTags = json['tags'] as List<dynamic>? ?? const [];
     return Memo(
-      id: json["id"],
-      message: json["message"],
-      author: json["author"],
-      createdAt: json["created_at"],
-      tags: json["tags"],
+      id: json['id'] as String,
+      message: json['message'] as String,
+      author: json['author'] as String,
+      createdAt: json['created_at'] as String,
+      tags: rawTags.map((e) => e as String).toList(),
     );
   }
 }

@@ -1,3 +1,19 @@
+class Attendee {
+  final String name;
+  final String email;
+  final String response;
+
+  Attendee({required this.name, required this.email, required this.response});
+
+  factory Attendee.fromJson(Map<String, dynamic> json) {
+    return Attendee(
+      name: json['name'] as String,
+      email: json['email'] as String,
+      response: json['response'] as String,
+    );
+  }
+}
+
 class Event {
   final String id;
   final String title;
@@ -6,7 +22,7 @@ class Event {
   final String location;
   final String description;
   final String organizer;
-  final String attendees;
+  final List<Attendee> attendees;
   final String createdAt;
 
   Event({
@@ -22,6 +38,7 @@ class Event {
   });
 
   factory Event.fromJson(Map<String, dynamic> json) {
+    final rawAttendees = json['attendees'] as List<dynamic>? ?? const [];
     return Event(
       id: json["id"],
       title: json["title"],
@@ -30,7 +47,9 @@ class Event {
       location: json["location"],
       description: json["description"],
       organizer: json["organizer"],
-      attendees: json["attendees"],
+      attendees: rawAttendees
+          .map((e) => Attendee.fromJson(e as Map<String, dynamic>))
+          .toList(),
       createdAt: json["created_at"],
     );
   }

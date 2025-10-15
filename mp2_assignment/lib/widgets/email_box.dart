@@ -10,7 +10,6 @@ class EmailBox extends StatefulWidget {
 class _EmailBoxState extends State<EmailBox> {
   @override
   Widget build(BuildContext context) {
-    double wPad = MediaQuery.of(context).size.width * .035;
     return Container(
       height: 100,
       width: double.infinity,
@@ -19,7 +18,7 @@ class _EmailBoxState extends State<EmailBox> {
         color: const Color.fromARGB(255, 231, 231, 231),
       ),
       child: Padding(
-        padding: EdgeInsets.fromLTRB(wPad, 10, wPad, 10),
+        padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
         child: Row(
           children: [
             //Icon Box
