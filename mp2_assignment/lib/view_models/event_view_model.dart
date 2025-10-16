@@ -1,7 +1,7 @@
 import 'package:mp2_assignment/models/event.dart';
 
 class EventViewModel {
-  final Event event;
+  final EventModel event;
 
   EventViewModel({required this.event});
 
@@ -25,7 +25,7 @@ class EventViewModel {
     return event.organizer;
   }
 
-  List<Attendee> get attendees {
+  List<AttendeeModel> get attendees {
     return event.attendees;
   }
 

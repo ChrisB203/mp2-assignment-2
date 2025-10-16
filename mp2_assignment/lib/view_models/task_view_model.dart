@@ -1,7 +1,7 @@
 import 'package:mp2_assignment/models/task.dart';
 
 class TaskViewModel {
-  final Task task;
+  final TaskModel task;
 
   TaskViewModel({required this.task});
 

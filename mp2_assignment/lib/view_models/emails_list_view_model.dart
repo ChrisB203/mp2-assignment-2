@@ -15,7 +15,7 @@ class EmailsListViewModel {
     final list = map['memos'] as List<dynamic>? ?? const [];
     return list
         .map(
-          (e) => MemoViewModel(memo: Memo.fromJson(e as Map<String, dynamic>)),
+          (e) => MemoViewModel(memo: MemoModel.fromJson(e as Map<String, dynamic>)),
         )
         .toList();
   }
@@ -26,7 +26,7 @@ class EmailsListViewModel {
     return list
         .map(
           (e) =>
-              EventViewModel(event: Event.fromJson(e as Map<String, dynamic>)),
+              EventViewModel(event: EventModel.fromJson(e as Map<String, dynamic>)),
         )
         .toList();
   }
@@ -36,7 +36,7 @@ class EmailsListViewModel {
     final list = map['tasks'] as List<dynamic>? ?? const [];
     return list
         .map(
-          (e) => TaskViewModel(task: Task.fromJson(e as Map<String, dynamic>)),
+          (e) => TaskViewModel(task: TaskModel.fromJson(e as Map<String, dynamic>)),
         )
         .toList();
   }

@@ -1,4 +1,4 @@
-class Task {
+class TaskModel {
   final String id;
   final String title;
   final String status;
@@ -11,7 +11,7 @@ class Task {
   final List<String>? blockedBy;
   final String? completedAt;
 
-  Task({
+  TaskModel({
     required this.id,
     required this.title,
     required this.status,
@@ -25,9 +25,9 @@ class Task {
     this.completedAt,
   });
 
-  factory Task.fromJson(Map<String, dynamic> json) {
+  factory TaskModel.fromJson(Map<String, dynamic> json) {
     final blocked = json['blocked_by'] as List<dynamic>?;
-    return Task(
+    return TaskModel(
       id: json['id'] as String,
       title: json['title'] as String,
       status: json['status'] as String,

@@ -1,7 +1,7 @@
 import 'package:mp2_assignment/models/memo.dart';
 
 class MemoViewModel {
-  final Memo memo;
+  final MemoModel memo;
 
   MemoViewModel({required this.memo});
 

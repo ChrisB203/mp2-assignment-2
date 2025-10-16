@@ -35,7 +35,10 @@ class _InboxState extends State<Inbox> {
 
               // Listing json elements here
               //Single Demo for now
-              EmailBox(),
+
+              
+
+              // EmailBox(),
             ],
           ),
         ),
