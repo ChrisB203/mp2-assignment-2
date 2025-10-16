@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mp2_assignment/widgets/email_box.dart';
-import 'package:mp2_assignment/widgets/horizontal_inbox_header.dart';
-import 'package:mp2_assignment/widgets/vertical_inbox_header.dart';
 
 class Inbox extends StatefulWidget {
   const Inbox({super.key});
@@ -42,6 +40,56 @@ class _InboxState extends State<Inbox> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class HorizontalInboxHeader extends StatelessWidget {
+  const HorizontalInboxHeader({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      //If horizontal
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(child: Text('Inbox', style: TextStyle(fontSize: 30))),
+        const SizedBox(width: 20),
+        Expanded(
+          flex: 1,
+          child: SearchBar(
+            hintText: 'Search',
+            shape: const WidgetStatePropertyAll(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class VerticalInboxHeader extends StatelessWidget {
+  const VerticalInboxHeader({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Inbox', style: TextStyle(fontSize: 30)),
+        const SizedBox(height: 10),
+        SearchBar(
+          hintText: 'Search',
+          shape: const WidgetStatePropertyAll(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

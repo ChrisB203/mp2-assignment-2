@@ -33,14 +33,3 @@ class EventViewModel {
     return DateTime.parse(event.createdAt);
   }
 }
-
-
-/**  final String id;
-  final String title;
-  final String startTime;
-  final String endTime;
-  final String location;
-  final String description;
-  final String organizer;
-  final List<Attendee> attendees;
-  final String createdAt; */
