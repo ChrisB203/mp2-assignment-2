@@ -9,6 +9,7 @@ import 'package:mp2_assignment/view_models/emails_list_view_model.dart';
 import 'package:mp2_assignment/view_models/memo_view_model.dart';
 import 'package:mp2_assignment/view_models/event_view_model.dart';
 import 'package:mp2_assignment/view_models/task_view_model.dart';
+import 'package:mp2_assignment/views/email_screens.dart';
 import 'package:mp2_assignment/widgets/email_boxes.dart';
 
 enum InboxItemType { memo, event, task }
@@ -120,7 +121,18 @@ class _InboxState extends State<Inbox> {
                           final item = items[i];
                           switch (item.type) {
                             case InboxItemType.memo:
-                              return MemoBox(memo: item.data as MemoViewModel);
+                              final memoVM = item.data as MemoViewModel;
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (_) => MemoScreen(memo: memoVM),
+                                    ),
+                                  );
+                                },
+                                child: MemoBox(memo: memoVM),
+                              );
+
                             case InboxItemType.event:
                               return EventBox(
                                 event: item.data as EventViewModel,

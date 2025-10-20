@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mp2_assignment/view_models/event_view_model.dart';
 import 'package:mp2_assignment/view_models/memo_view_model.dart';
 import 'package:mp2_assignment/view_models/task_view_model.dart';
+import 'package:mp2_assignment/widgets/email_icon.dart';
 
 class MemoBox extends StatelessWidget {
   final MemoViewModel memo;
@@ -21,17 +22,7 @@ class MemoBox extends StatelessWidget {
         child: Row(
           children: [
             //Icon Box
-            Container(
-              width: 75,
-              height: 75,
-              decoration: BoxDecoration(
-                color: Colors.grey[500],
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-              ),
-              child: Icon(Icons.mail_outline, size: 56),
-            ),
-
-            //End Icon Box
+            EmailIcon(icon: Icons.mail_outline),
 
             //Quick Spacer
             SizedBox(width: 20),
@@ -134,17 +125,7 @@ class EventBox extends StatelessWidget {
         child: Row(
           children: [
             //Icon Box
-            Container(
-              width: 75,
-              height: 75,
-              decoration: BoxDecoration(
-                color: Colors.grey[500],
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-              ),
-              child: Icon(Icons.calendar_today, size: 56),
-            ),
-
-            //End Icon Box
+            EmailIcon(icon: Icons.mail_outline),
 
             //Quick Spacer
             SizedBox(width: 20),
@@ -247,17 +228,7 @@ class TaskBox extends StatelessWidget {
         child: Row(
           children: [
             //Icon Box
-            Container(
-              width: 75,
-              height: 75,
-              decoration: BoxDecoration(
-                color: Colors.grey[500],
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-              ),
-              child: Icon(Icons.calendar_today, size: 56),
-            ),
-
-            //End Icon Box
+            EmailIcon(icon: Icons.calendar_today),
 
             //Quick Spacer
             SizedBox(width: 20),
