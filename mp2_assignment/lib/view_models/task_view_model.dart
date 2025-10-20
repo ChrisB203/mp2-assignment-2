@@ -1,7 +1,9 @@
+import 'package:intl/intl.dart';
 import 'package:mp2_assignment/models/task.dart';
 
 class TaskViewModel {
   final TaskModel task;
+  static final DateFormat _format = DateFormat('MMM d, yyyy h:mm a');
 
   TaskViewModel({required this.task});
 
@@ -31,6 +33,10 @@ class TaskViewModel {
 
   double get estimateHours {
     return task.estimateHours;
+  }
+
+  String get createdAtLabel {
+    return _format.format(createdAt);
   }
 
   DateTime get createdAt {

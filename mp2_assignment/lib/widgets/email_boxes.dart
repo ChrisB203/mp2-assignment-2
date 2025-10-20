@@ -29,10 +29,7 @@ class MemoBox extends StatelessWidget {
                 color: Colors.grey[500],
                 borderRadius: BorderRadius.all(Radius.circular(20)),
               ),
-              child: Icon(
-                Icons.mail_outline,
-                size: 56,
-              ),
+              child: Icon(Icons.mail_outline, size: 56),
             ),
 
             //End Icon Box
@@ -48,23 +45,38 @@ class MemoBox extends StatelessWidget {
                   //Name Row
                   Row(
                     children: [
-                      Text(
-                        memo.author,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          height: 1.25,
+                      Expanded(
+                        child: Text(
+                          memo.author,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            height: 1.25,
+                          ),
                         ),
                       ),
-                      Spacer(),
-                      Text(
-                        "memo.createdAt",
-                        style: TextStyle(height: 1.25, color: Colors.grey),
+                      SizedBox(width: 8),
+                      Flexible(
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            memo.createdAtLabel,
+                            style: TextStyle(height: 1.25, color: Colors.grey),
+                          ),
+                        ),
                       ),
                     ],
                   ),
 
                   //Header
-                  Text(memo.tags, style: TextStyle(height: 1)),
+                  Text(
+                    memo.tags,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(height: 1),
+                  ),
 
                   //Body Row
                   Row(
@@ -126,10 +138,7 @@ class EventBox extends StatelessWidget {
                 color: Colors.grey[500],
                 borderRadius: BorderRadius.all(Radius.circular(20)),
               ),
-              child: Icon(
-                Icons.calendar_today,
-                size: 56,
-              ),
+              child: Icon(Icons.calendar_today, size: 56),
             ),
 
             //End Icon Box
@@ -145,23 +154,38 @@ class EventBox extends StatelessWidget {
                   //Name Row
                   Row(
                     children: [
-                      Text(
-                        event.organizer,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          height: 1.25,
+                      Expanded(
+                        child: Text(
+                          event.organizer,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            height: 1.25,
+                          ),
                         ),
                       ),
-                      Spacer(),
-                      Text(
-                        "event.createdAt",
-                        style: TextStyle(height: 1.25, color: Colors.grey),
+                      SizedBox(width: 8),
+                      Flexible(
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            event.createdAtLabel,
+                            style: TextStyle(height: 1.25, color: Colors.grey),
+                          ),
+                        ),
                       ),
                     ],
                   ),
 
                   //Header
-                  Text(event.title, style: TextStyle(height: 1)),
+                  Text(
+                    event.title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(height: 1),
+                  ),
 
                   //Body Row
                   Row(
@@ -223,10 +247,7 @@ class TaskBox extends StatelessWidget {
                 color: Colors.grey[500],
                 borderRadius: BorderRadius.all(Radius.circular(20)),
               ),
-              child: Icon(
-                Icons.calendar_today,
-                size: 56,
-              ),
+              child: Icon(Icons.calendar_today, size: 56),
             ),
 
             //End Icon Box
@@ -242,23 +263,38 @@ class TaskBox extends StatelessWidget {
                   //Name Row
                   Row(
                     children: [
-                      Text(
-                        task.priority,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          height: 1.25,
+                      Expanded(
+                        child: Text(
+                          task.assignedTo,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            height: 1.25,
+                          ),
                         ),
                       ),
-                      Spacer(),
-                      Text(
-                        "event.createdAt",
-                        style: TextStyle(height: 1.25, color: Colors.grey),
+                      SizedBox(width: 8),
+                      Flexible(
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            task.createdAtLabel,
+                            style: TextStyle(height: 1.25, color: Colors.grey),
+                          ),
+                        ),
                       ),
                     ],
                   ),
 
                   //Header
-                  Text(task.title, style: TextStyle(height: 1)),
+                  Text(
+                    task.title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(height: 1),
+                  ),
 
                   //Body Row
                   Row(

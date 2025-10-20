@@ -1,7 +1,9 @@
+import 'package:intl/intl.dart';
 import 'package:mp2_assignment/models/event.dart';
 
 class EventViewModel {
   final EventModel event;
+  static final DateFormat _format = DateFormat('MMM d, yyyy h:mm a');
 
   EventViewModel({required this.event});
 
@@ -31,6 +33,10 @@ class EventViewModel {
 
   List<AttendeeModel> get attendees {
     return event.attendees;
+  }
+
+  String get createdAtLabel {
+    return _format.format(createdAt);
   }
 
   DateTime get createdAt {

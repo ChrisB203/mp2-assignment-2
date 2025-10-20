@@ -1,7 +1,9 @@
+import 'package:intl/intl.dart';
 import 'package:mp2_assignment/models/memo.dart';
 
 class MemoViewModel {
   final MemoModel memo;
+  static final DateFormat _format = DateFormat('MMM d, yyyy h:mm a');
 
   MemoViewModel({required this.memo});
 
@@ -15,6 +17,10 @@ class MemoViewModel {
 
   DateTime get createdAt {
     return DateTime.parse(memo.createdAt);
+  }
+
+  String get createdAtLabel {
+    return _format.format(createdAt);
   }
 
   String get tags {
