@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mp2_assignment/views/inbox.dart';
+import 'package:mp2_assignment/widgets/email_screens.dart';
 
 void main() {
   runApp(const MyApp());

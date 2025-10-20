@@ -14,7 +14,6 @@ class MemoBox extends StatelessWidget {
       height: 100,
       width: double.infinity,
       decoration: BoxDecoration(
-        border: Border(top: BorderSide(color: Colors.grey, width: 2)),
         color: const Color.fromARGB(255, 231, 231, 231),
       ),
       child: Padding(
@@ -57,13 +56,18 @@ class MemoBox extends StatelessWidget {
                         ),
                       ),
                       SizedBox(width: 8),
-                      Flexible(
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
+                      Expanded(
+                        child: Align(
                           alignment: Alignment.centerRight,
-                          child: Text(
-                            memo.createdAtLabel,
-                            style: TextStyle(height: 1.25, color: Colors.grey),
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              memo.createdAtLabel,
+                              style: TextStyle(
+                                height: 1.25,
+                                color: Colors.grey,
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -123,7 +127,6 @@ class EventBox extends StatelessWidget {
       height: 100,
       width: double.infinity,
       decoration: BoxDecoration(
-        border: Border(top: BorderSide(color: Colors.grey, width: 2)),
         color: const Color.fromARGB(255, 231, 231, 231),
       ),
       child: Padding(
@@ -166,13 +169,18 @@ class EventBox extends StatelessWidget {
                         ),
                       ),
                       SizedBox(width: 8),
-                      Flexible(
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
+                      Expanded(
+                        child: Align(
                           alignment: Alignment.centerRight,
-                          child: Text(
-                            event.createdAtLabel,
-                            style: TextStyle(height: 1.25, color: Colors.grey),
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              event.createdAtLabel,
+                              style: TextStyle(
+                                height: 1.25,
+                                color: Colors.grey,
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -232,7 +240,6 @@ class TaskBox extends StatelessWidget {
       height: 100,
       width: double.infinity,
       decoration: BoxDecoration(
-        border: Border(top: BorderSide(color: Colors.grey, width: 2)),
         color: const Color.fromARGB(255, 231, 231, 231),
       ),
       child: Padding(
@@ -275,13 +282,18 @@ class TaskBox extends StatelessWidget {
                         ),
                       ),
                       SizedBox(width: 8),
-                      Flexible(
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
+                      Expanded(
+                        child: Align(
                           alignment: Alignment.centerRight,
-                          child: Text(
-                            task.createdAtLabel,
-                            style: TextStyle(height: 1.25, color: Colors.grey),
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              task.createdAtLabel,
+                              style: TextStyle(
+                                height: 1.25,
+                                color: Colors.grey,
+                              ),
+                            ),
                           ),
                         ),
                       ),
