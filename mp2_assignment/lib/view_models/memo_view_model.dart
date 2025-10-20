@@ -18,6 +18,14 @@ class MemoViewModel {
   }
 
   String get tags {
-    return memo.tags.join(', ');
+    final eachTag = memo.tags.map((t) {
+      if (t.isEmpty) return t;
+      final capitalLetter = t[0].toUpperCase();
+      final rest = t.length > 1
+          ? t.substring(1)
+          : ''; //Technically don't need to check this since we're using premade JSON but good practice
+      return '$capitalLetter$rest';
+    });
+    return eachTag.join(' ');
   }
 }

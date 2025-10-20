@@ -13,6 +13,10 @@ class EventViewModel {
     return DateTime.parse(event.endTime);
   }
 
+  String get title {
+    return event.title;
+  }
+
   String get location {
     return event.location;
   }

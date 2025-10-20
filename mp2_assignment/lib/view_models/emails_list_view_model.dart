@@ -1,3 +1,4 @@
+import 'package:mp2_assignment/models/email_bundle.dart';
 import 'package:mp2_assignment/models/event.dart';
 import 'package:mp2_assignment/models/memo.dart';
 import 'package:mp2_assignment/models/task.dart';
@@ -10,34 +11,40 @@ class EmailsListViewModel {
   final EmailRepository repo;
   EmailsListViewModel(this.repo);
 
-  Future<List<MemoViewModel>> fetchMemos() async {
+  Future<EmailBundle> load() async {
     final map = await repo.fetchEmails();
-    final list = map['memos'] as List<dynamic>? ?? const [];
-    return list
-        .map(
-          (e) => MemoViewModel(memo: MemoModel.fromJson(e as Map<String, dynamic>)),
-        )
+
+    final memosJson = map['memos'] as List<dynamic>? ?? const [];
+    final eventsJson = map['events'] as List<dynamic>? ?? const [];
+    final tasksJson = map['tasks'] as List<dynamic>? ?? const [];
+
+    final memos = memosJson
+        .map((e) => MemoModel.fromJson(e as Map<String, dynamic>))
         .toList();
+
+    final events = eventsJson
+        .map((e) => EventModel.fromJson(e as Map<String, dynamic>))
+        .toList();
+
+    final tasks = tasksJson
+        .map((e) => TaskModel.fromJson(e as Map<String, dynamic>))
+        .toList();
+
+    return EmailBundle(memos: memos, events: events, tasks: tasks);
   }
 
-  Future<List<EventViewModel>> fetchEvents() async {
-    final map = await repo.fetchEmails();
-    final list = map['events'] as List<dynamic>? ?? const [];
-    return list
-        .map(
-          (e) =>
-              EventViewModel(event: EventModel.fromJson(e as Map<String, dynamic>)),
-        )
-        .toList();
+  Future<List<MemoViewModel>> memos() async {
+    final bundle = await load();
+    return bundle.memos.map((m) => MemoViewModel(memo: m)).toList();
   }
 
-  Future<List<TaskViewModel>> fetchTasks() async {
-    final map = await repo.fetchEmails();
-    final list = map['tasks'] as List<dynamic>? ?? const [];
-    return list
-        .map(
-          (e) => TaskViewModel(task: TaskModel.fromJson(e as Map<String, dynamic>)),
-        )
-        .toList();
+  Future<List<EventViewModel>> events() async {
+    final bundle = await load();
+    return bundle.events.map((e) => EventViewModel(event: e)).toList();
+  }
+
+  Future<List<TaskViewModel>> tasks() async {
+    final bundle = await load();
+    return bundle.tasks.map((t) => TaskViewModel(task: t)).toList();
   }
 }

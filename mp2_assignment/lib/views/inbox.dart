@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mp2_assignment/widgets/email_box.dart';
+import 'package:mp2_assignment/widgets/email_boxes.dart';
 
 class Inbox extends StatefulWidget {
   const Inbox({super.key});
@@ -38,7 +38,7 @@ class _InboxState extends State<Inbox> {
 
               
 
-              // EmailBox(),
+              // MemoBox(),
             ],
           ),
         ),
@@ -96,3 +96,4 @@ class VerticalInboxHeader extends StatelessWidget {
     );
   }
 }
+
