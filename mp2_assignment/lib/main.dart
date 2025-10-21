@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mp2_assignment/views/email_screens.dart';
 import 'package:mp2_assignment/views/inbox.dart';
 
 void main() {

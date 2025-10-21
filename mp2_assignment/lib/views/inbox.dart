@@ -130,15 +130,52 @@ class _InboxState extends State<Inbox> {
                                     ),
                                   );
                                 },
-                                child: MemoBox(memo: memoVM),
+                                child: EmailBox(
+                                  icon: Icons.mail_outline,
+                                  name: memoVM.author,
+                                  header: memoVM.tags,
+                                  description: memoVM.message,
+                                  date: memoVM.createdAtLabel,
+                                ),
                               );
 
                             case InboxItemType.event:
-                              return EventBox(
-                                event: item.data as EventViewModel,
+                              final eventVM = item.data as EventViewModel;
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (_) =>
+                                          EventScreen(event: eventVM),
+                                    ),
+                                  );
+                                },
+                                child: EmailBox(
+                                  icon: Icons.calendar_today,
+                                  name: eventVM.organizer,
+                                  header: eventVM.title,
+                                  description: eventVM.description,
+                                  date: eventVM.createdAtLabel,
+                                ),
                               );
                             case InboxItemType.task:
-                              return TaskBox(task: item.data as TaskViewModel);
+                              final taskVM = item.data as TaskViewModel;
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (_) => TaskScreen(task: taskVM),
+                                    ),
+                                  );
+                                },
+                                child: EmailBox(
+                                  icon: Icons.check_box_outlined,
+                                  name: taskVM.assignedTo,
+                                  header: taskVM.title,
+                                  description: taskVM.description,
+                                  date: taskVM.createdAtLabel,
+                                ),
+                              );
                           }
                         },
                       ),
