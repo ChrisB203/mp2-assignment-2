@@ -11,6 +11,16 @@ class EventViewModel {
     return DateTime.parse(event.startTime);
   }
 
+  String get startDateFormatted {
+    final date = DateTime.parse(event.startTime);
+    return DateFormat('EEEE, MMMM d , yyyy').format(date);
+  }
+
+  String get startTimeFormatted {
+    final date = DateTime.parse(event.startTime);
+    return DateFormat('h:mm a').format(date);
+  }
+
   DateTime get endTime {
     return DateTime.parse(event.endTime);
   }

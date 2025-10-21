@@ -12,25 +12,28 @@ class MemoScreen extends StatelessWidget {
     return Scaffold(
       appBar: _inboxAppBar(context),
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _EmailHeader(
-                    name: memo.author,
-                    date: memo.createdAtLabel,
-                    header: memo.tags,
-                    description: memo.message,
-                    icon: Icons.mail_outline,
-                  ),
-                ],
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _EmailHeader(
+                      name: memo.author,
+                      date: memo.createdAtLabel,
+                      header: memo.tags,
+                      description: memo.message,
+                      icon: Icons.mail_outline,
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+              SizedBox(height: 10),
+            ],
+          ),
         ),
       ),
     );
@@ -45,25 +48,34 @@ class EventScreen extends StatelessWidget {
     return Scaffold(
       appBar: _inboxAppBar(context),
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _EmailHeader(
-                    name: event.organizer,
-                    date: event.createdAtLabel,
-                    header: event.organizer,
-                    description: event.description,
-                    icon: Icons.calendar_today,
-                  ),
-                ],
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _EmailHeader(
+                      name: event.organizer,
+                      date: event.createdAtLabel,
+                      header: event.title,
+                      description: event.description,
+                      icon: Icons.calendar_today,
+                    ),
+                    SizedBox(height: 30),
+                    EventPrompt(
+                      title: event.title,
+                      date: event.startDateFormatted,
+                      time: event.startTimeFormatted,
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+              SizedBox(height: 10),
+            ],
+          ),
         ),
       ),
     );
@@ -78,25 +90,30 @@ class TaskScreen extends StatelessWidget {
     return Scaffold(
       appBar: _inboxAppBar(context),
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _EmailHeader(
-                    name: task.assignedTo,
-                    date: task.createdAtLabel,
-                    header: task.title,
-                    description: task.description,
-                    icon: Icons.check_box_outlined,
-                  ),
-                ],
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _EmailHeader(
+                      name: task.assignedTo,
+                      date: task.createdAtLabel,
+                      header: task.title,
+                      description: task.description,
+                      icon: Icons.check_box_outlined,
+                    ),
+                    SizedBox(height: 30),
+                    TaskPrompt(title: task.title),
+                  ],
+                ),
               ),
-            ),
-          ],
+              SizedBox(height: 10),
+            ],
+          ),
         ),
       ),
     );
@@ -187,11 +204,134 @@ class _EmailHeader extends StatelessWidget {
         SizedBox(height: 10),
         Text(
           header,
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, height: 1),
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            height: 1,
+          ),
         ),
         SizedBox(height: 15),
         Text(description, style: TextStyle(fontSize: 12, color: Colors.grey)),
       ],
+    );
+  }
+}
+
+class EventPrompt extends StatelessWidget {
+  final String title;
+  final String date;
+  final String time;
+  const EventPrompt({
+    super.key,
+    required this.title,
+    required this.date,
+    required this.time,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      color: Colors.grey[300],
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            ),
+            Divider(color: Colors.grey[600], thickness: 1, height: 2),
+            SizedBox(height: 5),
+            Row(
+              children: [
+                Text('Date: ', style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(date),
+              ],
+            ),
+            SizedBox(height: 5),
+            Row(
+              children: [
+                Text('Time: ', style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(time),
+              ],
+            ),
+            SizedBox(height: 5),
+            Row(
+              children: [
+                Text(
+                  'Repeats: ',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Text('Weekly'),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class TaskPrompt extends StatelessWidget {
+  final String title;
+  const TaskPrompt({super.key, required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      color: Colors.grey[300],
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                title,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+            ),
+            Divider(color: Colors.grey[600], thickness: 1, height: 2),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _CardButton(label: 'Mark as Complete'),
+                _CardButton(label: 'Add to To-Do List'),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _CardButton extends StatelessWidget {
+  final String label;
+  const _CardButton({super.key, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      child: Container(
+        height: 30,
+        width: 150,
+        decoration: BoxDecoration(
+          color: Colors.grey[500],
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Center(child: Text(label, style: const TextStyle(fontSize: 10))),
+      ),
     );
   }
 }
