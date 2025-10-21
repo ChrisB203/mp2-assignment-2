@@ -318,7 +318,7 @@ class TaskPrompt extends StatelessWidget {
 
 class _CardButton extends StatelessWidget {
   final String label;
-  const _CardButton({super.key, required this.label});
+  const _CardButton({required this.label});
 
   @override
   Widget build(BuildContext context) {
