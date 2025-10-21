@@ -3,7 +3,7 @@ import 'package:mp2_assignment/models/event.dart';
 
 class EventViewModel {
   final EventModel event;
-  static final DateFormat _format = DateFormat('MMM d, yyyy h:mm a');
+  static final DateFormat _format = DateFormat('M/d/yyyy');
 
   EventViewModel({required this.event});
 

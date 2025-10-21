@@ -7,17 +7,21 @@ import 'package:mp2_assignment/widgets/email_icon.dart';
 class MemoScreen extends StatelessWidget {
   final MemoViewModel memo;
   const MemoScreen({super.key, required this.memo});
+
   @override
   Widget build(BuildContext context) {
+    final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+
     return Scaffold(
-      appBar: _inboxAppBar(context),
+      appBar: isPortrait ? _inboxAppBar(context) : null,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const SizedBox(height: 0),
               Padding(
-                padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -31,7 +35,7 @@ class MemoScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
             ],
           ),
         ),
@@ -43,17 +47,21 @@ class MemoScreen extends StatelessWidget {
 class EventScreen extends StatelessWidget {
   final EventViewModel event;
   const EventScreen({super.key, required this.event});
+
   @override
   Widget build(BuildContext context) {
+    final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+
     return Scaffold(
-      appBar: _inboxAppBar(context),
+      appBar: isPortrait ? _inboxAppBar(context) : null,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const SizedBox(height: 0),
               Padding(
-                padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -64,7 +72,7 @@ class EventScreen extends StatelessWidget {
                       description: event.description,
                       icon: Icons.calendar_today,
                     ),
-                    SizedBox(height: 30),
+                    const SizedBox(height: 30),
                     EventPrompt(
                       title: event.title,
                       date: event.startDateFormatted,
@@ -73,7 +81,7 @@ class EventScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
             ],
           ),
         ),
@@ -85,17 +93,21 @@ class EventScreen extends StatelessWidget {
 class TaskScreen extends StatelessWidget {
   final TaskViewModel task;
   const TaskScreen({super.key, required this.task});
+
   @override
   Widget build(BuildContext context) {
+    final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+
     return Scaffold(
-      appBar: _inboxAppBar(context),
+      appBar: isPortrait ? _inboxAppBar(context) : null,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const SizedBox(height: 0),
               Padding(
-                padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -106,12 +118,12 @@ class TaskScreen extends StatelessWidget {
                       description: task.description,
                       icon: Icons.check_box_outlined,
                     ),
-                    SizedBox(height: 30),
+                    const SizedBox(height: 30),
                     TaskPrompt(title: task.title),
                   ],
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
             ],
           ),
         ),
@@ -142,16 +154,12 @@ class _EmailHeader extends StatelessWidget {
       children: [
         Row(
           children: [
-            //Icon Box
             EmailIcon(icon: icon),
-            //Quick Spacer
-            SizedBox(width: 20),
-
+            const SizedBox(width: 20),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  //Name Row
                   Row(
                     children: [
                       Expanded(
@@ -159,14 +167,14 @@ class _EmailHeader extends StatelessWidget {
                           name,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             height: 1.25,
                             fontSize: 20,
                           ),
                         ),
                       ),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                       Expanded(
                         child: Align(
                           alignment: Alignment.centerRight,
@@ -174,7 +182,7 @@ class _EmailHeader extends StatelessWidget {
                             fit: BoxFit.scaleDown,
                             child: Text(
                               date,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 height: 1.25,
                                 color: Colors.grey,
                               ),
@@ -184,12 +192,9 @@ class _EmailHeader extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Row(
+                  const Row(
                     children: [
-                      Text(
-                        'To:',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
+                      Text('To:', style: TextStyle(fontWeight: FontWeight.bold)),
                       Text(' You'),
                     ],
                   ),
@@ -198,20 +203,19 @@ class _EmailHeader extends StatelessWidget {
             ),
           ],
         ),
-
-        SizedBox(height: 10),
-        Divider(),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
+        const Divider(),
+        const SizedBox(height: 10),
         Text(
           header,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
             height: 1,
           ),
         ),
-        SizedBox(height: 15),
-        Text(description, style: TextStyle(fontSize: 12, color: Colors.grey)),
+        const SizedBox(height: 15),
+        Text(description, style: const TextStyle(fontSize: 12, color: Colors.grey)),
       ],
     );
   }
@@ -239,35 +243,14 @@ class EventPrompt extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              title,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-            ),
+            Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
             Divider(color: Colors.grey[600], thickness: 1, height: 2),
-            SizedBox(height: 5),
-            Row(
-              children: [
-                Text('Date: ', style: TextStyle(fontWeight: FontWeight.bold)),
-                Text(date),
-              ],
-            ),
-            SizedBox(height: 5),
-            Row(
-              children: [
-                Text('Time: ', style: TextStyle(fontWeight: FontWeight.bold)),
-                Text(time),
-              ],
-            ),
-            SizedBox(height: 5),
-            Row(
-              children: [
-                Text(
-                  'Repeats: ',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                Text('Weekly'),
-              ],
-            ),
+            const SizedBox(height: 5),
+            Row(children: [const Text('Date: ', style: TextStyle(fontWeight: FontWeight.bold)), Text(date)]),
+            const SizedBox(height: 5),
+            Row(children: [const Text('Time: ', style: TextStyle(fontWeight: FontWeight.bold)), Text(time)]),
+            const SizedBox(height: 5),
+            const Row(children: [Text('Repeats: ', style: TextStyle(fontWeight: FontWeight.bold)), Text('Weekly')]),
           ],
         ),
       ),
@@ -292,19 +275,13 @@ class TaskPrompt extends StatelessWidget {
           children: [
             FittedBox(
               fit: BoxFit.scaleDown,
-              child: Text(
-                title,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
-              ),
+              child: Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
             ),
             Divider(color: Colors.grey[600], thickness: 1, height: 2),
             const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
+              children: const [
                 _CardButton(label: 'Mark as Complete'),
                 _CardButton(label: 'Add to To-Do List'),
               ],

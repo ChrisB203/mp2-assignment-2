@@ -3,7 +3,7 @@ import 'package:mp2_assignment/models/memo.dart';
 
 class MemoViewModel {
   final MemoModel memo;
-  static final DateFormat _format = DateFormat('MMM d, yyyy h:mm a');
+  static final DateFormat _format = DateFormat('M/d/yyyy');
 
   MemoViewModel({required this.memo});
 

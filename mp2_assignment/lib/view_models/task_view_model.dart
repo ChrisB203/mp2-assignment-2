@@ -3,7 +3,7 @@ import 'package:mp2_assignment/models/task.dart';
 
 class TaskViewModel {
   final TaskModel task;
-  static final DateFormat _format = DateFormat('MMM d, yyyy h:mm a');
+  static final DateFormat _format = DateFormat('M/d/yyyy');
 
   TaskViewModel({required this.task});
 
