@@ -33,7 +33,6 @@ class _InboxState extends State<Inbox> {
   late final Future<EmailBundle> futureBundle;
 
   bool _isItemSelected = false;
-  Object? _selectedItem;
   final GlobalKey<NavigatorState> _detailNavKey = GlobalKey<NavigatorState>();
 
   @override
@@ -189,7 +188,6 @@ class _InboxState extends State<Inbox> {
 
     setState(() {
       _isItemSelected = true;
-      _selectedItem = vm;
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -266,7 +264,7 @@ class _InboxState extends State<Inbox> {
 // Headers
 
 class _HorizontalInboxHeader extends StatelessWidget {
-  final bool searchBarFlag; // true => item selected (hide search)
+  final bool searchBarFlag;
 
   const _HorizontalInboxHeader({required this.searchBarFlag});
 
