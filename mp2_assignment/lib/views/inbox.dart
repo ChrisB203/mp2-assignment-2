@@ -34,6 +34,7 @@ class _InboxState extends State<Inbox> {
 
   bool _isItemSelected = false;
   Object? _selectedItem;
+  final GlobalKey<NavigatorState> _detailNavKey = GlobalKey<NavigatorState>();
 
   @override
   void initState() {
@@ -91,8 +92,6 @@ class _InboxState extends State<Inbox> {
                 ),
             ]..sort((a, b) => b.sortKey.compareTo(a.sortKey));
 
-            // ====== LAYOUT SWITCHES ======
-            // 1) Landscape + selected => Split view with header on LEFT only (no search bar).
             if (isLandscape && _isItemSelected) {
               return Row(
                 children: [
@@ -100,8 +99,6 @@ class _InboxState extends State<Inbox> {
                   Expanded(
                     child: Column(
                       children: [
-                        // Header on the left, with NO right padding so the header's divider aligns
-                        // with the main vertical divider between panes.
                         Padding(
                           padding: const EdgeInsets.fromLTRB(20, 20, 0, 0),
                           child: _HorizontalInboxHeader(searchBarFlag: true),
@@ -113,29 +110,38 @@ class _InboxState extends State<Inbox> {
                     ),
                   ),
 
-                  // MAIN SPLIT DIVIDER BETWEEN PANES
+                  // MAIN SPLIT DIVIDER
                   const VerticalDivider(
                     thickness: 1,
                     color: Colors.grey,
                     width: 1,
                   ),
 
-                  // RIGHT PANE (full height)
+                  // RIGHT PANE — NESTED NAVIGATOR (initially shows placeholder)
                   Expanded(
-                    child: Container(
-                      color: Colors.grey[200],
-                      alignment: Alignment.center,
-                      child: const Text(
-                        'Select an item to view details',
-                        style: TextStyle(fontSize: 18, color: Colors.black54),
-                      ),
+                    child: Navigator(
+                      key: _detailNavKey,
+                      onGenerateRoute: (settings) {
+                        return MaterialPageRoute(
+                          builder: (_) => Container(
+                            color: Colors.grey[200],
+                            alignment: Alignment.center,
+                            child: const Text(
+                              'Select an item to view details',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.black54,
+                              ),
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ],
               );
             }
 
-            // 2) Portrait OR Landscape with no selection => Header above content
             return Column(
               children: [
                 Padding(
@@ -162,7 +168,50 @@ class _InboxState extends State<Inbox> {
     );
   }
 
-  // Reusable builder for the list
+  void _openDetail(Object vm, Orientation orientation) {
+    if (orientation == Orientation.portrait) {
+      // normal full-screen nav
+      if (vm is MemoViewModel) {
+        Navigator.of(
+          context,
+        ).push(MaterialPageRoute(builder: (_) => MemoScreen(memo: vm)));
+      } else if (vm is EventViewModel) {
+        Navigator.of(
+          context,
+        ).push(MaterialPageRoute(builder: (_) => EventScreen(event: vm)));
+      } else if (vm is TaskViewModel) {
+        Navigator.of(
+          context,
+        ).push(MaterialPageRoute(builder: (_) => TaskScreen(task: vm)));
+      }
+      return;
+    }
+
+    setState(() {
+      _isItemSelected = true;
+      _selectedItem = vm;
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final nav = _detailNavKey.currentState;
+      if (nav == null) return;
+
+      if (vm is MemoViewModel) {
+        nav.pushReplacement(
+          MaterialPageRoute(builder: (_) => MemoScreen(memo: vm)),
+        );
+      } else if (vm is EventViewModel) {
+        nav.pushReplacement(
+          MaterialPageRoute(builder: (_) => EventScreen(event: vm)),
+        );
+      } else if (vm is TaskViewModel) {
+        nav.pushReplacement(
+          MaterialPageRoute(builder: (_) => TaskScreen(task: vm)),
+        );
+      }
+    });
+  }
+
   Widget _buildList(List<InboxItem> items, Orientation orientation) {
     return ListView.separated(
       itemCount: items.length,
@@ -173,18 +222,7 @@ class _InboxState extends State<Inbox> {
           case InboxItemType.memo:
             final memoVM = item.data as MemoViewModel;
             return GestureDetector(
-              onTap: () {
-                if (orientation == Orientation.portrait) {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => MemoScreen(memo: memoVM)),
-                  );
-                } else {
-                  setState(() {
-                    _isItemSelected = true;
-                    _selectedItem = memoVM;
-                  });
-                }
-              },
+              onTap: () => _openDetail(memoVM, orientation),
               child: EmailBox(
                 icon: Icons.mail_outline,
                 name: memoVM.author,
@@ -197,20 +235,7 @@ class _InboxState extends State<Inbox> {
           case InboxItemType.event:
             final eventVM = item.data as EventViewModel;
             return GestureDetector(
-              onTap: () {
-                if (orientation == Orientation.portrait) {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => EventScreen(event: eventVM),
-                    ),
-                  );
-                } else {
-                  setState(() {
-                    _isItemSelected = true;
-                    _selectedItem = eventVM;
-                  });
-                }
-              },
+              onTap: () => _openDetail(eventVM, orientation),
               child: EmailBox(
                 icon: Icons.calendar_today,
                 name: eventVM.organizer,
@@ -223,18 +248,7 @@ class _InboxState extends State<Inbox> {
           case InboxItemType.task:
             final taskVM = item.data as TaskViewModel;
             return GestureDetector(
-              onTap: () {
-                if (orientation == Orientation.portrait) {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => TaskScreen(task: taskVM)),
-                  );
-                } else {
-                  setState(() {
-                    _isItemSelected = true;
-                    _selectedItem = taskVM;
-                  });
-                }
-              },
+              onTap: () => _openDetail(taskVM, orientation),
               child: EmailBox(
                 icon: Icons.check_box_outlined,
                 name: taskVM.assignedTo,
@@ -258,7 +272,6 @@ class _HorizontalInboxHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // When searchBarFlag is true, show a full-height divider instead of the search bar.
     return IntrinsicHeight(
       child: Row(
         children: [
@@ -266,7 +279,7 @@ class _HorizontalInboxHeader extends StatelessWidget {
           const SizedBox(width: 20),
           Expanded(
             child: searchBarFlag
-                ? SizedBox()
+                ? const SizedBox.shrink()
                 : const SearchBar(
                     hintText: 'Search',
                     shape: WidgetStatePropertyAll(
